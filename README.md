@@ -14,6 +14,7 @@ The tools we will be using in this demo are:
 - Let’s Encrypt (Certificate authority)
 - cert-manager (to automate certificate management)
 - external-dns (automate & sync services with your DNS provider, in this case Route53)
+- Add ArgoCD (optional)
 
 ## TODO
 
