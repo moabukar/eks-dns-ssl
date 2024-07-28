@@ -1,9 +1,8 @@
 terraform {
   backend "s3" {
-    bucket  = "bucketname-tfstate" # Update the bucket name
+    bucket  = "lab-tfstate" # Update the bucket name
     key     = "eks-lab"
     region  = "us-east-2"
-    profile = "bluesentry-sandbox"
     encrypt = true
   }
 
@@ -27,7 +26,6 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region  = "us-east-2"
-  profile = "bluesentry-sandbox"
 }
 
 
