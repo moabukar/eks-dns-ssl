@@ -5,6 +5,16 @@
 - Create test app and check ingress
 - Verify TLS
 
+## The tools
+
+The tools we will be using in this demo are:
+
+- Helm (K8s package manager)
+- NGINX Ingress Controller (ingress management)
+- Let’s Encrypt (Certificate authority)
+- cert-manager (to automate certificate management)
+- external-dns (automate & sync services with your DNS provider, in this case Route53)
+
 ## TODO
 
 - Add ArgoCD
