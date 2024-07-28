@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket  = "lab-tfstate" # Update the bucket name
+    bucket  = "eks-tfstate-mo" # Update the bucket name
     key     = "eks-lab"
     region  = "eu-west-2"
     encrypt = true
@@ -30,15 +30,15 @@ provider "aws" {
 
 
 # Configure the Helm provider
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
-}
+# data "aws_eks_cluster_auth" "cluster" {
+#   name = module.eks.cluster_id
+# }
 
 
-provider "helm" {
-  kubernetes {
-    host                   = module.eks.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-    token                  = data.aws_eks_cluster_auth.cluster.token
-  }
-}
+# provider "helm" {
+#   kubernetes {
+#     host                   = module.eks.cluster_endpoint
+#     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+#     token                  = data.aws_eks_cluster_auth.cluster.token
+#   }
+# }

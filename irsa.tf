@@ -4,7 +4,7 @@ module "cert_manager_irsa_role" {
 
   role_name                     = "cert-manager"
   attach_cert_manager_policy    = true
-  cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/XXXXXXXXXXXXXXXXXXXX"] # Your Route53 domain HostedZone
+  cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/Z03166542V7F6LVUK1OV0"]
 
 
   oidc_providers = {
@@ -27,7 +27,7 @@ module "external_dns_irsa_role" {
 
   role_name                     = "external-dns"
   attach_external_dns_policy    = true
-  external_dns_hosted_zone_arns = ["arn:aws:route53:::hostedzone/XXXXXXXXXXXXXXXXXXXX"] # Your Route53 domain HostedZone
+  external_dns_hosted_zone_arns = ["arn:aws:route53:::hostedzone/Z03166542V7F6LVUK1OV0"]
 
 
   oidc_providers = {
