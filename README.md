@@ -4,3 +4,8 @@
 - Deploy Helm charts for cert-man, nginx ingress controller and ext-dns
 - Create test app and check ingress
 - Verify TLS
+
+## TODO
+
+- Add ArgoCD
+- Add more platform resources
