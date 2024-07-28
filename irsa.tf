@@ -1,6 +1,6 @@
 # Cert Manager IRSA
 module "cert_manager_irsa_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
   role_name                     = "cert-manager"
   attach_cert_manager_policy    = true
@@ -22,7 +22,7 @@ module "cert_manager_irsa_role" {
 # External DNS IRSA
 module "external_dns_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.2.0" # Latest as of July 2022
+  version = "5.2.0"
 
 
   role_name                     = "external-dns"

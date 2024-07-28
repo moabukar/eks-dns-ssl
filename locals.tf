@@ -1,4 +1,4 @@
-locals { 
+locals {
   name   = "eks-lab"
   region = "us-east-2"
 
