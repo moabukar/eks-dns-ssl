@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket  = "lab-tfstate" # Update the bucket name
     key     = "eks-lab"
-    region  = "us-east-2"
+    region  = "eu-west-2"
     encrypt = true
   }
 
@@ -25,7 +25,7 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-east-2"
+  region = "eu-west-2"
 }
 
 

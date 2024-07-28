@@ -1,6 +1,6 @@
 locals {
   name   = "eks-lab"
-  region = "us-east-2"
+  region = "eu-west-2"
 
   tags = {
     Environment = "sandbox"
