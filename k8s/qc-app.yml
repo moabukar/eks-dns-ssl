@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qc-app
+  labels:
+    app: qc-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qc-app
+  template:
+    metadata:
+      labels:
+        app: qc-app
+    spec:
+      containers:
+      - name: qc-app
+        image: moabukar/qc-app:4149268
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qc-app
+spec:
+  selector:
+    app: qc-app
+  type: ClusterIP
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+  - name: app-port
+    protocol: TCP
+    port: 8086
+    targetPort: 5000
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qc-app-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "issuer"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: qc-app.lab.moabukar.co.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: qc-app
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - qc-app.lab.moabukar.co.uk
+    secretName: qc-app-tls

@@ -30,9 +30,6 @@ module "eks" {
     default = {}
   }
 
-
-
-
   # Adding required DNS Egress rule for Cert-Manager DNS challenge
   # node_security_group_additional_rules = {
   #   dns_all = {

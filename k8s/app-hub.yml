@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: the-app-hub
-        image: moabukar/the-app-hub:22e0324
+        image: moabukar/
         ports:
         - containerPort: 3000
 
