@@ -5,17 +5,17 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: your_email@gmail.com
+    email: moabukar9@gmail.com
     privateKeySecretRef:
       name: issuer
     solvers:
-    # - dns01:
-    #     route53:
-    #       hostedZoneID: <>
-    #       region: eu-west-2
-    #   selector:
-    #     dnsZones:
-    #     - "lab.moabukar.co.uk"
+    - dns01:
+        route53:
+          hostedZoneID: <>
+          region: eu-west-2
+      selector:
+        dnsZones:
+        - "lab.moabukar.co.uk"
     - http01:
         ingress:
           class: nginx

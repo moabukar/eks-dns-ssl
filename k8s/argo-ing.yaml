@@ -18,9 +18,9 @@ spec:
           service:
             name: argo-cd-argocd-server
             port:
-              name: https
-              # number: 80
+              # name: https
+              number: 443
   tls:
   - hosts:
     - argocd.lab.moabukar.co.uk
-    secretName: argocd-ingress-tls
+    secretName: argocd-tls

@@ -35,6 +35,11 @@ aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 ```bash
 helm install nginx-ingress nginx-stable/nginx-ingress --set rbac.create=true
 
+helm upgrade --install nginx-ingress nginx-stable/nginx-ingress \
+  --timeout 600s \
+  --debug
+  --set controller.publishService.enabled=true
+
 helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.15.1 --create-namespace --set installCRDs=true
 
 kubectl apply -f k8s/issuer-prod.yaml ## setup issuer for certs via cert-manager
@@ -53,6 +58,9 @@ helm install argo-cd charts/argo-cd/
 
 Add ingress and access via `argocd.lab.moabukar.co.uk`
 
+Login:
+user: admin
+pass: (get via secret) `kubectl get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d`
 ```
 
 ## TODO
