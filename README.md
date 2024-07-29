@@ -18,7 +18,7 @@ The tools we will be using in this demo are:
 
 ## Setup
 
-```
+```bash
 
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
@@ -32,12 +32,10 @@ aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 
 ## Manual install of Helm stuff
 
-```
-
+```bash
 helm install nginx-ingress nginx-stable/nginx-ingress --set rbac.create=true
 
 helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.2.0 --create-namespace --set installCRDs=true
-
 
 helm install external-dns external-dns/external-dns --namespace external-dns --create-namespace --values helm_values/values-external-dns.yaml
 
@@ -46,9 +44,7 @@ helm upgrade --install external-dns external-dns/external-dns --values helm_valu
 
 ## Optional (ArgoCD)
 
-```
-
-
+```bash
 helm repo add argo-cd https://argoproj.github.io/argo-helm
 helm dep update charts/argo-cd/
 helm install argo-cd charts/argo-cd/
