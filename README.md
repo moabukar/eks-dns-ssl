@@ -35,7 +35,9 @@ aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 ```bash
 helm install nginx-ingress nginx-stable/nginx-ingress --set rbac.create=true
 
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.2.0 --create-namespace --set installCRDs=true
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.15.1 --create-namespace --set installCRDs=true
+
+kubectl apply -f k8s/issuer-prod.yaml ## setup issuer for certs via cert-manager
 
 helm install external-dns external-dns/external-dns --namespace external-dns --create-namespace --values helm_values/values-external-dns.yaml
 
