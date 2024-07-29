@@ -28,6 +28,8 @@ tf init and tf plan/apply
 
 aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 
+Give user EKSAdmin & EKSClusterAdmin Policy
+
 ```
 
 ## Manual install of Helm stuff
