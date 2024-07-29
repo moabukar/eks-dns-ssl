@@ -40,3 +40,7 @@ override.tf.json
 terraform.rc
 
 .terraform**
+
+aws-auth.yaml
+output-key.json
+rbacuser_creds.sh
