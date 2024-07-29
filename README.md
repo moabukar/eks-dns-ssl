@@ -30,7 +30,7 @@ aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 
 ```
 
-## Manual instal of Helm stuff
+## Manual install of Helm stuff
 
 ```
 
@@ -59,7 +59,9 @@ Add ingress and access via `argocd.lab.moabukar.co.uk`
 
 ## TODO
 
-- Add ArgoCD
-- Add more platform resources
+
+- Add ArgoCD [X]
+- Fix Helm provider integration with K8s for Helm installation via TF to work.
+- Add more platform resources (like external secrets, kyverno, seret gen, argocd image updater etc)
 
 ![alt text](./ingresss)
