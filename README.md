@@ -1,4 +1,6 @@
-# EKS with DNS, Ingress & SSL (automated)
+# Production grade EKS cluster with DNS, Ingress & SSL (automated)
+
+A small demo to showcase what it looks like to expose your applications into the public securely via ingress controllers combined with signed SSL certs for HTTPS. We use tools like NGINX ingress controller, cert-manager with Let's encrypt to manage our certs, externalDNS to manage our DNS provider records.
 
 - Create VPC, cluster and other AWS resources
 - Deploy Helm charts for cert-man, nginx ingress controller and ext-dns
@@ -67,7 +69,7 @@ pass: (get via secret) `kubectl get secret argocd-initial-admin-secret -o jsonpa
 
 ## TODO
 
-
+- Use private clusters (and VPN on top to securely access it)
 - Add ArgoCD [X]
 - Fix Helm provider integration with K8s for Helm installation via TF to work.
 - Add more platform resources (like external secrets, kyverno, seret gen, argocd image updater etc)
