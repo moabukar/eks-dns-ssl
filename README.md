@@ -30,41 +30,83 @@ tf init and tf plan/apply
 
 aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 
-Give user EKSAdmin & EKSClusterAdmin Policy
+## User access
+
+- Create a new user in access entry in the EKS section
+- The ARN will be your user so `arn:aws:iam::<>:root`, use standard type and group name admin and give it 2 policies
+  - AmazonEKSAdminPolicy & AmazonEKSClusterAdminPolicy
+- Now try to access the cluster with `kubectl get pods` or `kubectl get nodes`
+- Also attach IAM policy for ext-dns and cert-man to role `arn:aws:sts::<>>:assumed-role/default-eks-node-group-20240818104140997500000003/i-0e0725623b20012d7`
+
+- Give user EKSAdmin & EKSClusterAdmin Policy
 
 ```
 
-## Manual install of Helm stuff
+## Platform Applications
+
+### NGINX
 
 ```bash
-helm install nginx-ingress nginx-stable/nginx-ingress --set rbac.create=true
+## NGINX Ingress
 
-helm upgrade --install nginx-ingress nginx-stable/nginx-ingress \
-  --timeout 600s \
-  --debug
-  --set controller.publishService.enabled=true
+kubectl create ns nginx-ingress
+helm install nginx-ingress nginx-stable/nginx-ingress -n nginx-ingress
 
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.15.1 --create-namespace --set installCRDs=true
-
-kubectl apply -f k8s/issuer-prod.yaml ## setup issuer for certs via cert-manager
-
-helm install external-dns external-dns/external-dns --namespace external-dns --create-namespace --values helm_values/values-external-dns.yaml
-
-helm upgrade --install external-dns external-dns/external-dns --values helm_values/values-external-dns.yaml
 ```
 
-## Optional (ArgoCD)
+### Cert Manager
+
+```bash
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.15.1 --create-namespace --set installCRDs=true --values helm/helm_values/values-cert-manager.yaml
+
+kubectl apply -f k8s/issuer-prod.yaml ## setup issuer for certs via cert-manager
+```
+
+## External DNS
+
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+
+helm install external-dns bitnami/external-dns \
+  --create-namespace \
+  --namespace external-dns \
+  --values helm/helm_values/values-external-dns.yaml
+
+```
+
+## ArgoCD Deployment
 
 ```bash
 helm repo add argo-cd https://argoproj.github.io/argo-helm
-helm dep update charts/argo-cd/
-helm install argo-cd charts/argo-cd/
 
-Add ingress and access via `argocd.lab.moabukar.co.uk`
+
+helm install argo-cd argo-cd/argo-cd \
+  --namespace argo-cd \
+  --create-namespace \
+  --version 5.19.15 \
+  --values helm/helm_values/values-argocd.yaml
+
+## Get Argo initial admin pass
+alias argopass="kubectl get secret argocd-initial-admin-secret -n argo-cd -o jsonpath='{.data.password}' | base64 --decode"
 
 Login:
 user: admin
-pass: (get via secret) `kubectl get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d`
+pass: via secret above
+```
+
+### Additional app deployment
+
+The App Hub
+
+```bash
+
+kubectl apply -f k8s/app-hub.yml
+
+--- wait for cert-manager to create DNS and also for externalDNS to add your records on Route53
+Then access it below:
+
+https://the-app-hub.lab.moabukar.co.uk/
 ```
 
 ## TODO
@@ -75,3 +117,14 @@ pass: (get via secret) `kubectl get secret argocd-initial-admin-secret -o jsonpa
 - Add more platform resources (like external secrets, kyverno, seret gen, argocd image updater etc)
 
 ![alt text](./ingresss)
+
+
+### For troubleshooting
+
+- in case you install argocd in wrong namespace, delete CRDs
+```bash
+kubectl delete crd applications.argoproj.io applicationsets.argoproj.io appprojects.argoproj.io
+
+and install ArgoCD again
+
+```

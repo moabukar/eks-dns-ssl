@@ -24,6 +24,10 @@ module "eks" {
     disk_size      = 50
     instance_types = ["t3a.large", "t3.large"]
   }
+  # eks_managed_node_group_defaults = {
+  #   disk_size      = 50
+  #   instance_types = ["t3.medium", "t3.medium"]
+  # }
 
 
   eks_managed_node_groups = {

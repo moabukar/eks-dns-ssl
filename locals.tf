@@ -1,4 +1,5 @@
 locals {
+  domain = "lab.moabukar.co.uk"
   name   = "eks-lab"
   region = "eu-west-2"
 

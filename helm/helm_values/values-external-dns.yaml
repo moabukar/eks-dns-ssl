@@ -1,8 +1,12 @@
-provider:
-  name: aws
+provider: aws
+
 env:
 - name: AWS_DEFAULT_REGION
   value: eu-west-2
 
-  # domainFilters:
-  # - lab.moabukar.co.uk
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::<>:role/external-dns"
+
+domainFilters:
+- lab.moabukar.co.uk

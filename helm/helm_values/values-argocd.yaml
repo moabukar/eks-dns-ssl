@@ -6,16 +6,13 @@ server:
     type: ClusterIP
   ingress:
     enabled: true
+    ingressClassName: "nginx"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.org/hsts: "false"
-      # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    ingress:
+      cert-manager.io/cluster-issuer: issuer
+    hosts:
+    - argocd.lab.moabukar.co.uk
+    tls:
+    - secretName: argocd-ingress-tls
       hosts:
-      - argocd.moabukar.co.uk
-      tls:
-      - secretName: argocd-ingress-tls
-        # server.ingress.tls[0].hosts[0]
-        hosts:
-        - argocd.moabukar.co.uk
+      - argocd.lab.moabukar.co.uk
