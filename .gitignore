@@ -1,6 +1,7 @@
 .env
 .DS_Store
 creds.sh
+scripts.txt
 
 # Local .terraform directories
 **/.terraform/*
