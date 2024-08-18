@@ -88,7 +88,7 @@ helm install argo-cd argo-cd/argo-cd \
   --values helm/helm_values/values-argocd.yaml
 
 ## Get Argo initial admin pass
-alias argopass="kubectl get secret argocd-initial-admin-secret -n argo-cd -o jsonpath='{.data.password}' | base64 --decode"
+alias argopass="kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}' | base64 --decode"
 
 Login:
 user: admin
@@ -121,9 +121,14 @@ https://the-app-hub.lab.moabukar.co.uk/
 
 ### For troubleshooting
 
-- in case you install argocd in wrong namespace, delete CRDs
+- in case you install argocd/cert-man in wrong namespace, delete CRDs
+
 ```bash
 kubectl delete crd applications.argoproj.io applicationsets.argoproj.io appprojects.argoproj.io
+
+kubectl delete crd certificaterequests.cert-manager.io certificates.cert-manager.io challenges.acme.cert-manager.io clusterissuers.cert-manager.io issuers.cert-manager.io orders.acme.cert-manager.io
+
+Note: if you cannot delete a challenge, edit the challenge via `kubectl edit` and remove the finalizer line. 
 
 and install ArgoCD again
 
