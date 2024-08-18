@@ -42,7 +42,9 @@ aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 
 ```
 
-## Platform Applications
+## Platform Applications (Manual)
+
+- This is the manual setup. However, everything has been automated via Terraform. 
 
 ### NGINX
 
@@ -88,7 +90,7 @@ helm install argo-cd argo-cd/argo-cd \
   --values helm/helm_values/values-argocd.yaml
 
 ## Get Argo initial admin pass
-alias argopass="kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}' | base64 --decode"
+alias argopass="kubectl get secret argocd-initial-admin-secret -n argo-cd -o jsonpath='{.data.password}' | base64 --decode"
 
 Login:
 user: admin

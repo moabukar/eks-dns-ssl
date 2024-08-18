@@ -26,13 +26,8 @@ resource "helm_release" "cert_manager" {
     value = "true"
   }
 
-#   set {
-#     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com\\/role-arn"
-#     value = module.cert_manager_irsa_role.iam_role_arn
-#   }
-
   values = [
-    "${file("helm/helm_values/values-cert-manager.yaml")}"
+    "${file("helm-values/cert-manager.yaml")}"
   ]
 }
 
@@ -51,15 +46,8 @@ resource "helm_release" "external_dns" {
     value = module.external_dns_irsa_role.iam_role_arn
   }
 
-
-#   set {
-#     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com\\/role-arn"
-#     value = module.external_dns_irsa_role.iam_role_arn
-#   }
-
-
   values = [
-    "${file("helm/helm_values/values-external-dns.yaml")}"
+    "${file("helm-values/external-dns.yaml")}"
   ]
 }
 
@@ -67,15 +55,26 @@ resource "helm_release" "argocd_deploy" {
 #   depends_on = [kubernetes_secret.argocd_repo_credentials]
 
   name       = "argocd"
-  namespace  = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
   version    = "5.19.15"
   timeout    = "600"
 
+  namespace  = "argo-cd"
   create_namespace = true
 
   values = [
-    "${file("helm/helm_values/values-argocd.yaml")}"
+    "${file("helm-values/argocd.yaml")}"
   ]
 }
+
+## Prometheus
+
+# resource "helm_release" "prometheus" {
+#   name       = "prometheus"
+#   repository = "https://prometheus-community.github.io/helm-charts"
+#   chart      = "prometheus"
+
+#   create_namespace = true
+#   namespace        = "prometheus"
+# }
