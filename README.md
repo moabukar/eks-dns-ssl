@@ -36,7 +36,7 @@ aws eks --region eu-west-2 update-kubeconfig --name eks-lab
 - The ARN will be your user so `arn:aws:iam::<>:root`, use standard type and group name admin and give it 2 policies
   - AmazonEKSAdminPolicy & AmazonEKSClusterAdminPolicy
 - Now try to access the cluster with `kubectl get pods` or `kubectl get nodes`
-- Also attach IAM policy for ext-dns and cert-man to role `arn:aws:sts::<>>:assumed-role/default-eks-node-group-20240818104140997500000003/i-0e0725623b20012d7`
+# - Also attach IAM policy for ext-dns and cert-man to role `arn:aws:sts::<>>:assumed-role/default-eks-node-group-20240818104140997500000003/i-0e0725623b20012d7`
 
 - Give user EKSAdmin & EKSClusterAdmin Policy
 
@@ -61,7 +61,7 @@ helm install nginx-ingress nginx-stable/nginx-ingress -n nginx-ingress
 ```bash
 helm install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.15.1 --create-namespace --set installCRDs=true --values helm/helm_values/values-cert-manager.yaml
 
-kubectl apply -f k8s/issuer-prod.yaml ## setup issuer for certs via cert-manager
+kubectl apply -f cert-man/issuer-prod.yaml ## setup issuer for certs via cert-manager
 ```
 
 ## External DNS

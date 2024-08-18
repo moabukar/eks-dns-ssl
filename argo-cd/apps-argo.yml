@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: 'https://github.com/moabukar/eks-dns-ssl.git'
+    targetRevision: HEAD
+    path: app-hub
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: apps
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
