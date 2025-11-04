@@ -52,7 +52,7 @@ resource "helm_release" "external_dns" {
 }
 
 resource "helm_release" "argocd_deploy" {
-#   depends_on = [kubernetes_secret.argocd_repo_credentials]
+  #   depends_on = [kubernetes_secret.argocd_repo_credentials]
 
   name       = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
@@ -60,7 +60,7 @@ resource "helm_release" "argocd_deploy" {
   version    = "5.19.15"
   timeout    = "600"
 
-  namespace  = "argo-cd"
+  namespace        = "argo-cd"
   create_namespace = true
 
   values = [

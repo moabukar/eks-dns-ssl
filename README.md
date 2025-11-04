@@ -135,3 +135,4 @@ Note: if you cannot delete a challenge, edit the challenge via `kubectl edit` an
 and install ArgoCD again
 
 ```
+

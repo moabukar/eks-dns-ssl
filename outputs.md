@@ -57,3 +57,4 @@ I0818 13:01:30.721880       1 controller.go:157] "re-queuing item due to optimis
 I0818 13:01:30.723346       1 conditions.go:192] Found status change for Certificate "argocd-ingress-tls" condition "Ready": "False" -> "True"; setting lastTransitionTime to 2024-08-18 13:01:30.72333533 +0000 UTC m=+171.178151765
 I0818 13:01:30.748220       1 controller.go:157] "re-queuing item due to optimistic locking on resource" logger="cert-manager.controller" key="argocd/argocd-ingress-tls" error="Operation cannot be fulfilled on certificates.cert-manager.io \"argocd-ingress-tls\": the object has been modified; please apply your changes to the latest version and try again"
 ```
+
